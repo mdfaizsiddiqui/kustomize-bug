@@ -1,0 +1,28 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my_service
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: my_service
+    spec:
+      containers:
+        - name: main
+          image: "my_service:cdfeff-123213"
+          imagePullPolicy: Always
+          readinessProbe:
+            initialDelaySeconds: 3
+            periodSeconds: 4
+            httpGet:
+              port: 8080
+              path: "/my_service/health/ping"
+          livenessProbe:
+            initialDelaySeconds: 3
+            periodSeconds: 4
+            httpGet:
+              port: 8080
+              path: "/my_service/health/ping"

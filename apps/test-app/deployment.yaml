@@ -1,0 +1,18 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my_service
+spec:
+  replicas: 2
+  template:
+    spec:
+      containers:
+        - name: main
+          resources:
+            limits:
+              cpu: 20m
+              memory: 60Mi
+            requests:
+              cpu: 20m
+              memory: 60Mi

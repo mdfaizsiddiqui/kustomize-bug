@@ -1,0 +1,15 @@
+---
+source:
+  kind: Deployment
+  fieldPath: metadata.name
+targets:
+  - select:
+      kind: Deployment
+    reject:
+      - name: test-app2
+    fieldPaths:
+      - spec.template.spec.containers.[name=main].readinessProbe.httpGet.path
+      - spec.template.spec.containers.[name=main].livenessProbe.httpGet.path
+    options:
+      delimiter: "/"
+      index: 1

@@ -1,0 +1,28 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../../base/service-internal
+
+labels:
+  - includeSelectors: true
+    pairs:
+      service: test-app
+
+patches:
+  - target:
+      name: my_service
+    patch: |-
+      - op: replace
+        path: /metadata/name
+        value: test-app
+  - path: deployment.yaml
+
+replacements:
+  - path: ../common/internal/replacement.yaml
+
+images:
+  - name: my_service
+    newName: 1234567890.dkr.ecr.us-east-1.amazonaws.com/test-app
+    newTag: 3bdf9bd-1672995877
